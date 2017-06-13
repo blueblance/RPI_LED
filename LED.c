@@ -24,10 +24,13 @@
 #include <linux/device.h>			// class_create
 #include <linux/types.h>			// dev_t
 #include <asm/uaccess.h>			// copy_from_user
+#include <linux/interrupt.h>
 
 #define LED_DRIVER_NAME "LED"
 #define	BUF_SIZE	5
 #define BUTTON 23
+#define MY_GPIO_INT_NAME "my_button_int"
+#define MY_DEV_NAME "my_device"
 
 static dev_t driverno ;               //Default driver number
 static struct cdev *gpio_cdev;
@@ -50,8 +53,7 @@ static int led_trigger = 0;
 static irqreturn_t button_isr(int irq, void *data)
 {
 	local_irq_save(flags);
-	printk("button_isr !!!!\n");
-	gpio_set_value(LED, led_trigger);
+	printk("button_isr !!!!\n");	
 	led_trigger = led_trigger ? (0):(1);
 	local_irq_restore(flags);
 	return IRQ_HANDLED;
