@@ -141,10 +141,14 @@ static int __init LED_init_module(void)
     }
     //buton register
 
-    if(gpio_request(BUTTON,"BUTTON") < 0) return -1;
+    if((BUTTON,"BUTTON") < 0) return -1;
+    printk("gpio request button ok\n");
     if(gpio_is_valid(BUTTON) < 0) return -1;
+    printk("gpio valid ok\n");
     if( (button_irq = gpio_to_irq(BUTTON)) < 0 )  return -1;
+    printk("irq make ok \n");
     if( request_irq( button_irq, button_isr ,IRQF_TRIGGER_RISING, MY_GPIO_INT_NAME, MY_DEV_NAME)) return -1;
+    printk("request irq gen ok\n");
 
 
 
