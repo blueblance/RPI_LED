@@ -35,6 +35,7 @@
 static dev_t driverno ;               //Default driver number
 static struct cdev *gpio_cdev;
 static struct class *gpio_class;
+static int irq_num = 0;
 
 static struct gpio leds[] = {
     {  2, GPIOF_OUT_INIT_LOW, "LED_0" },
@@ -52,9 +53,10 @@ static int led_trigger = 0;
 
 static irqreturn_t button_isr(int irq, void *data)
 {
+    irq_num = irq_num ? (0) : (1);
 	local_irq_save(flags);
 	printk("button_isr !!!!\n");	
-	blink();
+	gpio_set_value(gpio0, led_trigger);
 	local_irq_restore(flags);
 
 	return IRQ_HANDLED;
