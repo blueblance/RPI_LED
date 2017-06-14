@@ -54,8 +54,9 @@ static irqreturn_t button_isr(int irq, void *data)
 {
 	local_irq_save(flags);
 	printk("button_isr !!!!\n");	
-	led_trigger = led_trigger ? (0):(1);
+	blink();
 	local_irq_restore(flags);
+
 	return IRQ_HANDLED;
 }
 
