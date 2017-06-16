@@ -49,13 +49,14 @@ static int gpio2 = 4;
 
 static short int button_irq = 0;
 static unsigned long flags = 0;
-static int led_trigger = 0;
+static int button_cnt = 0;
 
 static irqreturn_t button_isr(int irq, void *data)
 {
     irq_num = irq_num ? (0) : (1);
+    button_cnt++;
 	local_irq_save(flags);
-	printk("button_isr !!!!\n");	
+	printk("button_isr !!!! button cnt = %d\n" , button_cnt);	    
 	gpio_set_value(gpio0, irq_num);
 	local_irq_restore(flags);
 
