@@ -56,7 +56,7 @@ static irqreturn_t button_isr(int irq, void *data)
     irq_num = irq_num ? (0) : (1);
 	local_irq_save(flags);
 	printk("button_isr !!!!\n");	
-	gpio_set_value(gpio0, led_trigger);
+	gpio_set_value(gpio0, irq_num);
 	local_irq_restore(flags);
 
 	return IRQ_HANDLED;
